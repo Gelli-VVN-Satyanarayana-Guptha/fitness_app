@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitness_app/constants/navigation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -6,13 +7,14 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
+ 
 class _HomeScreenState extends State<HomeScreen> {
   final username = "Satya";
   final motivationline = "\"No Pain No Gain\"";
   final hrate = "76";
   final timer = "00 : 00";
-
+  
+  
   @override
   void initState() {
     Future.delayed(
@@ -428,6 +430,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
         ),
       )),
+     
     );
   }
 }
