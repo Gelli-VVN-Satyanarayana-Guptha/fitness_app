@@ -12,9 +12,10 @@ class _NavigationState extends State<Navigation> {
   int currentIndex = 0;
   final screens = [
     HomeScreen(),
-    Center(child: Text('chat', style: TextStyle(fontSize: 60),),),
     Center(child: Text('feed', style: TextStyle(fontSize: 60),),),
-    ProfilePage(),
+    Center(child: Text('chat', style: TextStyle(fontSize: 60),),),
+    
+    
   ];
   @override
   Widget build(BuildContext context) {
@@ -28,24 +29,20 @@ class _NavigationState extends State<Navigation> {
            BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home', 
-            backgroundColor: Colors.grey, 
-           ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat', 
-            backgroundColor: Colors.grey, 
+            
            ),
             BottomNavigationBarItem(  
             icon: Icon(Icons.groups),
             label: 'Feed', 
-            backgroundColor: Colors.grey, 
+            
            ),
             BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile', 
-            backgroundColor:  Color.fromARGB(255, 241, 241, 68), 
+            icon: Icon(Icons.chat),
+            label: 'Chat', 
+          
            ),
-      ]),
-    );
+        ],
+           
+    ));
   }
 }

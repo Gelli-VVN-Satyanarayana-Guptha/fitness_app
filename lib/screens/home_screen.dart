@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_app/constants/navigation.dart';
+import 'package:fitness_app/screens/profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.account_circle_rounded),
-              onPressed: () {},
+              onPressed: ()=> {Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfilePage()))},
             ),
           ]),
       body: SafeArea(
