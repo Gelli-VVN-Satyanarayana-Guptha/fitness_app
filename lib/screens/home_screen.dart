@@ -17,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     Future.delayed(
       Duration(seconds: 3),
-      //() => Navigator.pushNamed(context, '/onboarding'),
       () => {},
     );
     super.initState();
@@ -75,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 90, right: 10, top: 10, bottom: 10),
+                          left: 100, right: 20, top: 20, bottom: 20),
                       child: Image.asset("assets/images/heart.png"),
                     ),
                   ],

@@ -2,6 +2,10 @@ import 'package:fitness_app/screens/splash_screen.dart';
 import 'package:fitness_app/screens/login_screen.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/screens/signup_screen.dart';
+import 'package:fitness_app/screens/feed_screen.dart';
+import 'package:fitness_app/screens/chat_screen.dart';
+import 'package:fitness_app/constants/navigation.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,13 +23,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/HomeScreen',
+      home: RootApp(),
+      //initialRoute: '/ChatScreen',
       //initialRoute: '/SignUpScreen',
       routes: {
         //"/": (context) => SplashScreen(),
         //'/LoginScreen': (context) => LoginScreen(),
-        '/HomeScreen': (context) => HomeScreen(),
+        //'/HomeScreen': (context) => HomeScreen(),
         //'/SignUpScreen': (context) => SignUpScreen(),
+        //'/FeedScreen': (context) => FeedScreen(),
+        '/ChatScreen': (context) => ChatScreen(),
       },
     );
   }
