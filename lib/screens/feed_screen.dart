@@ -12,6 +12,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   @override
+  var pressed = List<int>.filled(postsList.length, 0);
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.white,
@@ -29,7 +30,6 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   Widget getBody() {
-    int pressed = 0;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 25, right: 25),
@@ -195,15 +195,15 @@ class _FeedScreenState extends State<FeedScreen> {
                                           GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                pressed = 1;
+                                                pressed[index] = 1;
                                               });
                                             },
                                             child: Icon(
-                                              pressed == 0
+                                              (pressed[index] == 0)
                                                   ? CupertinoIcons.heart
                                                   : CupertinoIcons.heart_fill,
                                               size: 18,
-                                              color: pressed == 0
+                                              color: pressed[index] == 0
                                                   ? Color.fromARGB(
                                                       255, 255, 255, 255)
                                                   : Colors.red,
