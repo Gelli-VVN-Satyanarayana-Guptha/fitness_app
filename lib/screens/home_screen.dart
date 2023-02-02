@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         onPressed: () => {},
                                         child: const Text(
-                                          "Start",
+                                          "stop",
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         onPressed: () => {},
                                         child: const Text(
-                                          "Start",
+                                          "stop",
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -379,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         onPressed: () => {},
                                         child: const Text(
-                                          "Start",
+                                          "stop",
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),

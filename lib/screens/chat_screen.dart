@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fitness_app/data/user_json.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class MembersScreen extends StatefulWidget {
+  const MembersScreen({Key? key}) : super(key: key);
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _MembersScreenState createState() => _MembersScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _MembersScreenState extends State<MembersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Messages", style: TextStyle(fontFamily: 'inder')),
+        title: Text("Members", style: TextStyle(fontFamily: 'inder')),
         backgroundColor: Color(0xff502F2F),
       ),
       body: getBody(),
@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       cursorColor: Colors.black,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Search for contacts"),
+                          hintText: "Search for Members"),
                     ),
                   )
                 ],
@@ -129,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(usersList[index]['message'],
+                              Text(usersList[index]['contact_no'],
                                   style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.black.withOpacity(0.5)))

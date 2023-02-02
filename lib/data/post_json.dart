@@ -4,7 +4,7 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/3990301/pexels-photo-3990301.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://i.pinimg.com/originals/ba/2e/ab/ba2eab27253a7d019c2277b22261e5fc.jpg",
     "time": "2 hrs ago",
     "like": "5.2k",
     "comment": "1.1k",

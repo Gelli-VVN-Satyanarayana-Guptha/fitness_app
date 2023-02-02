@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/chat_screen.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/screens/feed_screen.dart';
-//import 'package:fitness_app/screens/profile_screen.dart';
+import 'package:fitness_app/screens/profile_screen.dart';
 import 'dart:math' as math;
 
 class RootApp extends StatefulWidget {
@@ -33,8 +33,8 @@ class _RootAppState extends State<RootApp> {
         Center(
           child: Text("Upload"),
         ),
-        ChatScreen(),
-        Text("Profile"),
+        MembersScreen(),
+        ProfileScreen(),
       ],
     );
   }
@@ -42,11 +42,11 @@ class _RootAppState extends State<RootApp> {
   Widget getFooter() {
     return Container(
       width: double.infinity,
-      height: 90,
+      height: 70,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withOpacity(0.3),
               spreadRadius: 1,
               blurRadius: 20,
               offset: Offset(0, 1)),
@@ -100,7 +100,7 @@ class _RootAppState extends State<RootApp> {
                     });
                   },
                   child: Icon(
-                    Icons.chat,
+                    Icons.groups,
                     size: 25,
                     color: activeTab == 3 ? Colors.blue : Colors.black,
                   ),
