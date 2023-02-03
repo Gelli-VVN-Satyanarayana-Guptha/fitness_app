@@ -5,11 +5,21 @@ import 'package:fitness_app/screens/signup_screen.dart';
 import 'package:fitness_app/screens/feed_screen.dart';
 import 'package:fitness_app/screens/chat_screen.dart';
 import 'package:fitness_app/constants/navigation.dart';
-
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  //Ideal time to initialize
+  //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +33,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RootApp(),
+      home: SplashScreen(),
+
       //initialRoute: '/ChatScreen',
       //initialRoute: '/SignUpScreen',
       routes: {

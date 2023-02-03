@@ -30,7 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: Color(0xff502F2F),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.arrow_circle_left_outlined),
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fitness_app/screens/home_screen.dart';
+import 'package:fitness_app/constants/navigation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness_app/utils/firestore_crud.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -9,6 +15,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
+  final _formKey = GlobalKey<FormState>();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController fullnameController = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -76,6 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: SizedBox(
                                 width: 320,
                                 child: TextFormField(
+                                  controller: nameController,
                                   style: TextStyle(fontSize: 20),
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -127,6 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: SizedBox(
                                 width: 320,
                                 child: TextFormField(
+                                  controller: fullnameController,
                                   style: TextStyle(fontSize: 20),
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -178,6 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: SizedBox(
                                 width: 320,
                                 child: TextFormField(
+                                  controller: emailController,
                                   style: TextStyle(fontSize: 20),
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -229,7 +245,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: SizedBox(
                                 width: 320,
                                 child: TextFormField(
-                                  obscureText: true,
+                                  //obscureText: true,
+                                  controller: passwordController,
                                   style: TextStyle(fontSize: 20),
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -254,7 +271,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       backgroundColor: Colors.black,
                       minimumSize: const Size(70, 40), // Background color
                     ),
-                    onPressed: () => {},
+                    onPressed: () {
+                      registerToFb();
+                    },
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(fontSize: 20),
@@ -267,5 +286,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  void registerToFb() {
+    Map<String, String> data = {
+      "email": emailController.text,
+      "fullname": fullnameController.text,
+      "username": nameController.text
+    };
+
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) {
+      FireStoreMethods.addDataToFirestore("Users", data).then((res) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => RootApp()),
+        );
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
   }
 }

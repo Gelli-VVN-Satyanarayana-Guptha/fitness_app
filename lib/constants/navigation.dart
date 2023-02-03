@@ -6,7 +6,10 @@ import 'package:fitness_app/screens/profile_screen.dart';
 import 'dart:math' as math;
 
 class RootApp extends StatefulWidget {
-  const RootApp({Key? key}) : super(key: key);
+  const RootApp({
+    Key? key,
+    String? uid,
+  }) : super(key: key);
 
   @override
   _RootAppState createState() => _RootAppState();

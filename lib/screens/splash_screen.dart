@@ -1,4 +1,8 @@
+import 'package:fitness_app/constants/navigation.dart';
+import 'package:fitness_app/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,11 +13,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  User? result = FirebaseAuth.instance.currentUser;
+  //User? result = null;
+
   void initState() {
     Future.delayed(
-      Duration(seconds: 5),
-      () => Navigator.pushNamed(context, '/LoginScreen'),
-    );
+        Duration(seconds: 3),
+        () => (result != null)
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RootApp()),
+              )
+            : Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              ));
     super.initState();
   }
 

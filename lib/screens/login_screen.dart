@@ -1,4 +1,7 @@
+import 'package:fitness_app/constants/navigation.dart';
+import 'package:fitness_app/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,13 +11,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+
   @override
   void initState() {
-    Future.delayed(
-      Duration(seconds: 3),
-      //() => Navigator.pushNamed(context, '/onboarding'),
-      () => {},
-    );
     super.initState();
   }
 
@@ -83,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: SizedBox(
                                   width: 320,
                                   child: TextFormField(
+                                    controller: emailController,
                                     style: TextStyle(fontSize: 20),
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -134,6 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: SizedBox(
                                   width: 320,
                                   child: TextFormField(
+                                    controller: passwordController,
                                     style: TextStyle(fontSize: 20),
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -170,7 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             minimumSize:
                                 const Size(100, 40), // Background color
                           ),
-                          onPressed: () => {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpScreen()),
+                            );
+                          },
                           child: const Text(
                             "Sign Up",
                             style: TextStyle(fontSize: 18),
@@ -193,7 +203,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             minimumSize:
                                 const Size(100, 40), // Background color
                           ),
-                          onPressed: () => {},
+                          onPressed: () {
+                            logInToFb();
+                          },
                           child: const Text(
                             "Login",
                             style: TextStyle(fontSize: 18),
@@ -207,5 +219,35 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void logInToFb() {
+    firebaseAuth
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => RootApp(uid: result.user!.uid)),
+      );
+    }).catchError((err) {
+      print(err.message);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                TextButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
   }
 }
