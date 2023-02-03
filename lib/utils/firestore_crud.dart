@@ -17,12 +17,11 @@ class FireStoreMethods {
     return response;
   }
 
-  static Future<void> readDataFromFirestore() async {
-    await db.collection("users").get().then(
+  static Future<void> readDataFromFirestore(String collectionName) async {
+    await db.collection(collectionName).get().then(
       (QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
-          print(doc.data());
-          // return doc.data();
+          //return doc.data();
         });
       },
     );

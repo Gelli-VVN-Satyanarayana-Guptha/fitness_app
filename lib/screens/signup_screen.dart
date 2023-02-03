@@ -15,6 +15,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
+  bool isVisible = true;
   final _formKey = GlobalKey<FormState>();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
@@ -24,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           color: Colors.white,
@@ -245,16 +247,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: SizedBox(
                                 width: 320,
                                 child: TextFormField(
-                                  //obscureText: true,
+                                  obscureText: isVisible,
                                   controller: passwordController,
                                   style: TextStyle(fontSize: 20),
                                   decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'password',
-                                      suffixIcon: Icon(Icons.remove_red_eye,
+                                    border: InputBorder.none,
+                                    hintText: 'password',
+                                    suffixIcon: IconButton(
+                                        icon: Icon(
+                                          isVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
                                           size: 25.0,
-                                          color:
-                                              Colors.black.withOpacity(0.8))),
+                                          color: Colors.black.withOpacity(0.8),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            isVisible = !isVisible;
+                                          });
+                                        }),
+                                  ),
                                 ),
                               ),
                             ),

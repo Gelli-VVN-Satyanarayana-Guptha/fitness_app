@@ -82,6 +82,87 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
+                child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 38),
+                  child: Container(
+                    width: 160,
+                    height: 160,
+                    child: Column(children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 15, bottom: 0, left: 15),
+                        child: Text(
+                          "Diet",
+                          style: TextStyle(
+                              fontFamily: "inder",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        width: 160,
+                        height: 120,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            top: 10,
+                            bottom: 15,
+                          ),
+                          child: SizedBox(
+                            height: 55,
+                            width: 45,
+                            child: GestureDetector(
+                                onTap: () {
+                                  print("diet");
+                                },
+                                child: Image.asset("assets/images/diet.png")),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                    child: Column(children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 15, bottom: 0, left: 15),
+                        child: Text(
+                          "Exercise",
+                          style: TextStyle(
+                              fontFamily: "inder",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        width: 160,
+                        height: 120,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, top: 15, bottom: 15),
+                          child: SizedBox(
+                            height: 55,
+                            width: 45,
+                            child: GestureDetector(
+                                onTap: () {
+                                  print("exercise");
+                                },
+                                child:
+                                    Image.asset("assets/images/exercise.png")),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                )
+              ],
+            )),
+            Container(
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),

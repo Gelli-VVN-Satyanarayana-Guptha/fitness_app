@@ -14,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   User? result = FirebaseAuth.instance.currentUser;
-  //User? result = null;
 
   void initState() {
     Future.delayed(
@@ -34,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           color: Colors.white,
