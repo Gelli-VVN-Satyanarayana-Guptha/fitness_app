@@ -233,6 +233,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
   void logInToFb() {
     firebaseAuth
         .signInWithEmailAndPassword(

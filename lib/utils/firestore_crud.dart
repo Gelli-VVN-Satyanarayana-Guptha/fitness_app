@@ -17,7 +17,7 @@ class FireStoreMethods {
     return response;
   }
 
-  static Future<void> readDataFromFirestore(String collectionName) async {
+  static Future<dynamic> readDataFromFirestore(String collectionName) async {
     await db.collection(collectionName).get().then(
       (QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {

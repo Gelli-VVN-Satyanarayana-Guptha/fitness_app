@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,22 +10,102 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final username = "Satya";
-  final motivationline = "\"No Pain No Gain\"";
-  final hrate = "76";
-  final timer = "00 : 00";
-
+  Timer? countTimerJ;
+  Timer? countTimerC;
+  Timer? countTimerY;
+  Duration myDurationJ = Duration(hours: 1);
+  Duration myDurationC = Duration(hours: 1);
+  Duration myDurationY = Duration(hours: 1);
   @override
   void initState() {
-    Future.delayed(
-      Duration(seconds: 3),
-      () => {},
-    );
     super.initState();
   }
 
+  void startTimer(String activity) {
+    switch (activity) {
+      case "J":
+        countTimerJ =
+            Timer.periodic(Duration(seconds: 1), (_) => setCount("J"));
+        break;
+      case "C":
+        countTimerC =
+            Timer.periodic(Duration(seconds: 1), (_) => setCount("C"));
+        break;
+      case "Y":
+        countTimerY =
+            Timer.periodic(Duration(seconds: 1), (_) => setCount("Y"));
+        break;
+    }
+  }
+
+  void stopTimer(String activity) {
+    switch (activity) {
+      case "J":
+        setState(() => countTimerJ!.cancel());
+        break;
+      case "C":
+        setState(() => countTimerC!.cancel());
+        break;
+      case "Y":
+        setState(() => countTimerY!.cancel());
+        break;
+    }
+  }
+
+  void resetTimer(String activity) {
+    stopTimer(activity);
+    switch (activity) {
+      case "J":
+        setState(() => myDurationJ = Duration(hours: 1));
+        break;
+      case "C":
+        setState(() => myDurationC = Duration(hours: 1));
+        break;
+      case "Y":
+        setState(() => myDurationY = Duration(hours: 1));
+        break;
+    }
+  }
+
+  // Step 6
+  void setCount(String activity) {
+    final increaseSecondsBy = 1;
+
+    switch (activity) {
+      case "J":
+        setState(() {
+          final secondsJ = myDurationJ.inSeconds + increaseSecondsBy;
+          myDurationJ = Duration(seconds: secondsJ);
+        });
+        break;
+      case "C":
+        setState(() {
+          final secondsC = myDurationC.inSeconds + increaseSecondsBy;
+          myDurationC = Duration(seconds: secondsC);
+        });
+        break;
+      case "Y":
+        setState(() {
+          final secondsY = myDurationY.inSeconds + increaseSecondsBy;
+          myDurationY = Duration(seconds: secondsY);
+        });
+        break;
+    }
+  }
+
+  final username = "Satya";
+  final hrate = "76";
+
   @override
   Widget build(BuildContext context) {
+    String strDigits(int n) => n.toString().padLeft(2, '0');
+    final minutesJ = strDigits(myDurationJ.inMinutes.remainder(60));
+    final secondsJ = strDigits(myDurationJ.inSeconds.remainder(60));
+    final minutesC = strDigits(myDurationC.inMinutes.remainder(60));
+    final secondsC = strDigits(myDurationC.inSeconds.remainder(60));
+    final minutesY = strDigits(myDurationY.inMinutes.remainder(60));
+    final secondsY = strDigits(myDurationY.inSeconds.remainder(60));
+
     return Scaffold(
       appBar: AppBar(
           title: Text("Hello $username", style: TextStyle(fontFamily: 'inder')),
@@ -218,7 +300,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Radius.circular(10))),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
-                                              child: Text(timer,
+                                              child: Text(
+                                                  "$minutesJ : $secondsJ",
                                                   style: TextStyle(
                                                       fontFamily: "inder",
                                                       fontSize: 18,
@@ -235,27 +318,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: SizedBox(
                                             height: 55,
                                             width: 45,
-                                            child: Image.asset(
-                                                "assets/images/timer.png"),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                resetTimer("J");
+                                              },
+                                              child: Image.asset(
+                                                  "assets/images/timer.png"),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 70, top: 0),
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
-                                          minimumSize: const Size(
-                                              60, 20), // Background color
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 40, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              startTimer("J");
+                                            },
+                                            child: const Text(
+                                              "start",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                        onPressed: () => {},
-                                        child: const Text(
-                                          "stop",
-                                          style: TextStyle(fontSize: 14),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              if (countTimerJ == null ||
+                                                  countTimerJ!.isActive) {
+                                                stopTimer("J");
+                                              }
+                                            },
+                                            child: const Text(
+                                              "stop",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -322,7 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Radius.circular(10))),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
-                                              child: Text(timer,
+                                              child: Text(
+                                                  "$minutesC : $secondsC",
                                                   style: TextStyle(
                                                       fontFamily: "inder",
                                                       fontSize: 18,
@@ -339,27 +455,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: SizedBox(
                                             height: 55,
                                             width: 45,
-                                            child: Image.asset(
-                                                "assets/images/timer.png"),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                resetTimer("C");
+                                              },
+                                              child: Image.asset(
+                                                  "assets/images/timer.png"),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 70, top: 0),
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
-                                          minimumSize: const Size(
-                                              60, 20), // Background color
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 40, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              startTimer("C");
+                                            },
+                                            child: const Text(
+                                              "start",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                        onPressed: () => {},
-                                        child: const Text(
-                                          "stop",
-                                          style: TextStyle(fontSize: 14),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              if (countTimerC == null ||
+                                                  countTimerC!.isActive) {
+                                                stopTimer("C");
+                                              }
+                                            },
+                                            child: const Text(
+                                              "stop",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -426,7 +574,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Radius.circular(10))),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
-                                              child: Text(timer,
+                                              child: Text(
+                                                  "$minutesY : $secondsY",
                                                   style: TextStyle(
                                                       fontFamily: "inder",
                                                       fontSize: 18,
@@ -443,27 +592,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: SizedBox(
                                             height: 55,
                                             width: 45,
-                                            child: Image.asset(
-                                                "assets/images/timer.png"),
+                                            child: GestureDetector(
+                                              onTap: (() {
+                                                resetTimer("Y");
+                                              }),
+                                              child: Image.asset(
+                                                  "assets/images/timer.png"),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 70, top: 0),
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.black,
-                                          minimumSize: const Size(
-                                              60, 20), // Background color
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 40, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              startTimer("Y");
+                                            },
+                                            child: const Text(
+                                              "start",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                        onPressed: () => {},
-                                        child: const Text(
-                                          "stop",
-                                          style: TextStyle(fontSize: 14),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 0),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black,
+                                              minimumSize: const Size(
+                                                  60, 20), // Background color
+                                            ),
+                                            onPressed: () {
+                                              if (countTimerY == null ||
+                                                  countTimerY!.isActive) {
+                                                stopTimer("Y");
+                                              }
+                                            },
+                                            child: const Text(
+                                              "stop",
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -499,12 +680,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ), //container
               ]),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(0, 119, 119, 173),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(children: []),
-            )
           ]),
         ),
       )),
