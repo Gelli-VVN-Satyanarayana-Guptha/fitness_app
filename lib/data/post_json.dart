@@ -4,18 +4,16 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/3990301/pexels-photo-3990301.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://i.pinimg.com/originals/ba/2e/ab/ba2eab27253a7d019c2277b22261e5fc.jpg",
+        "https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "2 hrs ago",
     "like": "5.2k",
-    "comment": "1.1k",
-    "share": "231"
   },
   {
     "name": "Axel Oneill",
     "img":
         "https://images.pexels.com/photos/5096976/pexels-photo-5096976.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://images.pexels.com/photos/884979/pexels-photo-884979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://images.pexels.com/photos/3571576/pexels-photo-3571576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "3 hrs ago",
     "like": "1.2k",
     "comment": "4.1k",
@@ -26,7 +24,7 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://images.pexels.com/photos/7048338/pexels-photo-7048338.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500https://images.pexels.com/photos/7048338/pexels-photo-7048338.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "6 hrs ago",
     "like": "3.4k",
     "comment": "1.7k",
@@ -37,7 +35,7 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/4456148/pexels-photo-4456148.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://images.pexels.com/photos/2036645/pexels-photo-2036645.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "18 hrs ago",
     "like": "7.8k",
     "comment": "2.8k",
@@ -48,7 +46,7 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/5096976/pexels-photo-5096976.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     "postImg":
-        "https://images.pexels.com/photos/2836486/pexels-photo-2836486.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://images.pexels.com/photos/635279/pexels-photo-635279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "4 days ago",
     "like": "4.2k",
     "comment": "4.1k",
@@ -59,7 +57,7 @@ const List postsList = [
     "img":
         "https://images.pexels.com/photos/1853098/pexels-photo-1853098.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     "postImg":
-        "https://images.pexels.com/photos/9196117/pexels-photo-9196117.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "https://images.pexels.com/photos/70577/sunset-birds-flying-sky-70577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "time": "2 days ago",
     "like": "900",
     "comment": "300",

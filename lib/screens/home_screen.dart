@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/screens/login_screen.dart';
+import 'package:fitness_app/screens/profile_screen.dart';
+import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/material.dart';
+import 'package:fitness_app/constants/global.dart' as globals;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +15,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final username = globals.username;
+  final hrate = "76";
+
   Timer? countTimerJ;
   Timer? countTimerC;
   Timer? countTimerY;
@@ -67,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Step 6
   void setCount(String activity) {
     final increaseSecondsBy = 1;
 
@@ -93,9 +101,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  final username = "Satya";
-  final hrate = "76";
-
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
@@ -106,14 +111,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final minutesY = strDigits(myDurationY.inMinutes.remainder(60));
     final secondsY = strDigits(myDurationY.inSeconds.remainder(60));
 
+    globals.minJ = minutesJ;
+    globals.minC = minutesC;
+    globals.minY = minutesY;
+
     return Scaffold(
       appBar: AppBar(
           title: Text("Hello $username", style: TextStyle(fontFamily: 'inder')),
           backgroundColor: Color(0xff502F2F),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.account_circle_rounded),
-              onPressed: () {},
+              icon: const Icon(Icons.logout_rounded),
+              onPressed: () {
+                signOut();
+              },
             ),
           ]),
       body: SafeArea(
@@ -684,5 +695,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       )),
     );
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

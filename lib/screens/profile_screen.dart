@@ -1,5 +1,9 @@
+import 'package:fitness_app/utils/firestore_crud.dart';
+import 'package:fitness_app/utils/image_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/data/me_post_json.dart';
+import 'package:fitness_app/screens/home_screen.dart';
+import 'package:fitness_app/constants/global.dart' as globals;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -9,12 +13,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ImageUpload IU = ImageUpload();
   bool isPhoto = true;
-  final username = "Satya";
-  final email = "@satyanarayana";
-  final jogtime = 20;
-  final cycletime = 10;
-  final yogatime = 15;
+  final username = globals.username;
+  final email = globals.email;
+  final jogtime = globals.minJ;
+  final cycletime = globals.minC;
+  final yogatime = globals.minY;
 
   @override
   void initState() {
@@ -51,52 +56,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Container(
             width: double.infinity,
-            height: 200,
-            color: Colors.amber.shade100,
+            height: 250,
+            color: Color.fromARGB(255, 225, 223, 216),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(children: [
-                  Container(
-                    width: 75,
-                    height: 75,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(28),
-                        border: Border.all(color: Colors.black)),
-                    child: Center(
-                      child: Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"),
-                                fit: BoxFit.cover)),
-                      ),
+                  Center(
+                    child: Container(
+                      width: 140,
+                      height: 140,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(70),
+                          image: DecorationImage(
+                              image: NetworkImage(globals.imgString),
+                              fit: BoxFit.cover)),
                     ),
                   ),
                   Positioned(
-                    top: 41,
-                    left: 38,
+                    top: 100,
+                    left: 225,
                     child: IconButton(
-                        onPressed: (() {}),
+                        onPressed: (() async {
+                          await IU.upload("gallery", "/userimg");
+                          setState(() {});
+                        }),
                         icon: Icon(
                           Icons.photo_camera,
                           color: Colors.black,
-                          size: 20,
+                          size: 30,
                         )),
                   )
                 ]),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 8),
                   child: Text(
                     "$username",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 Text(
                   "$email",

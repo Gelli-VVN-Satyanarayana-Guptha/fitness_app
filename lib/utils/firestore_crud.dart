@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness_app/constants/global.dart' as globals;
 
 class FireStoreMethods {
   static FirebaseFirestore db = FirebaseFirestore.instance;
@@ -17,14 +18,22 @@ class FireStoreMethods {
     return response;
   }
 
-  static Future<dynamic> readDataFromFirestore(String collectionName) async {
-    await db.collection(collectionName).get().then(
-      (QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          //return doc.data();
-        });
-      },
-    );
+  static Future<void> addUserDoc(
+      String collectionName, String docid, Map<String, dynamic> data) async {
+    await db
+        .collection(collectionName)
+        .doc(docid)
+        .set(data)
+        .catchError((onError) => {print(onError.toString())});
+  }
+
+  static Future<String> readDataFromFirestore(
+      String collectionName, String docid) async {
+    var docSh = await db.collection(collectionName).doc(docid).get();
+    Map<String, dynamic>? data = docSh.data();
+    print(data);
+    String postDoc = data!["postimg"];
+    return postDoc;
   }
 
   static Future<void> updateOrCreateFirestoreData(
@@ -43,4 +52,22 @@ class FireStoreMethods {
         .delete()
         .then((value) => print("Deleted"));
   }
+
+  static Future<void> updateOneField(
+      String collectionName, String field, String docid, dynamic data) async {
+    await db
+        .collection(collectionName)
+        .doc(docid)
+        .update({field: data}).catchError((e) => print(e));
+  }
+
+  static Future<void> getDetails(String collectionName, String docid) async {
+    var docSh = await db.collection(collectionName).doc(docid).get();
+    Map<String, dynamic>? data = docSh.data();
+    globals.imgString = data?["img"];
+    globals.username = data?["username"];
+    globals.email = data?["email"];
+  }
+
+  // static Future<void> deletePost(String)
 }

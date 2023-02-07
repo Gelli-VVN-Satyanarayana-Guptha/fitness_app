@@ -1,9 +1,14 @@
+import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/chat_screen.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/screens/feed_screen.dart';
 import 'package:fitness_app/screens/profile_screen.dart';
+import 'package:fitness_app/constants/global.dart' as globals;
+
 import 'dart:math' as math;
+
+import '../screens/upload_screen.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({
@@ -19,6 +24,7 @@ class _RootAppState extends State<RootApp> {
   int activeTab = 0;
   @override
   Widget build(BuildContext context) {
+    FireStoreMethods.getDetails("Users", globals.userdoc);
     return Scaffold(
       bottomNavigationBar: getFooter(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -33,9 +39,7 @@ class _RootAppState extends State<RootApp> {
       children: [
         HomeScreen(),
         FeedScreen(),
-        Center(
-          child: Text("Upload"),
-        ),
+        UploadScreen(),
         MembersScreen(),
         ProfileScreen(),
       ],
