@@ -191,15 +191,6 @@ class _FeedScreenState extends State<FeedScreen> {
                                                   SizedBox(
                                                     height: 3,
                                                   ),
-                                                  // Text(
-                                                  //   documentSnapshot[
-                                                  //           'description']
-                                                  //       .toString(),
-                                                  //   style: TextStyle(
-                                                  //       fontSize: 13,
-                                                  //       color: Colors.white
-                                                  //           .withOpacity(0.8)),
-                                                  // ),
                                                 ],
                                               )
                                             ],

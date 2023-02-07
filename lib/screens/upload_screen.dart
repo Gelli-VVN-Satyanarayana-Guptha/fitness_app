@@ -48,17 +48,6 @@ class _UploadScreenState extends State<UploadScreen> {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
-                        // print(documentSnapshot["postDoc"]);
-                        // Future<String> postimg =
-                        //     FireStoreMethods.readDataFromFirestore(
-                        //         "posts", documentSnapshot["postDoc"]);
-                        // String img = "";
-
-                        // void futureStringConverter(Future<String> link) async {
-                        //   img = await link;
-                        // }
-
-                        // futureStringConverter(postimg);
 
                         return Card(
                           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -75,15 +64,12 @@ class _UploadScreenState extends State<UploadScreen> {
                                 backgroundColor: Colors.black,
                               ),
                               onPressed: () {
-                                // FireStoreMethods.deleteData(
-                                //     documentSnapshot["postDoc"], "posts");
-                                // FireStoreMethods.deleteData(
-                                //     documentSnapshot["postDoc"],
-                                //     globals.userdoc);
-                                // FireStoreMethods.deleteData(
-                                //     documentSnapshot.id, globals.userdoc);
-                                // IU.delete(documentSnapshot["postimg"]);
-                                // setState(() {});
+                                String postDoc = documentSnapshot["postDoc"];
+
+                                String dShid = documentSnapshot.id;
+                                String imgid = documentSnapshot["postimg"];
+                                //FireStoreMethods.deletePost(postDoc,dShid,imgid);
+                                setState(() {});
                               },
                               icon: const Icon(
                                 Icons.delete,

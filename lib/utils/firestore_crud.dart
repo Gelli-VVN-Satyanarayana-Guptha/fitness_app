@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness_app/utils/image_upload.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
 
 class FireStoreMethods {
   static FirebaseFirestore db = FirebaseFirestore.instance;
+  static ImageUpload IU = ImageUpload();
 
   static Future<String> addDataToFirestore(
       String collectionName, Map<String, dynamic> data) async {
@@ -69,5 +71,11 @@ class FireStoreMethods {
     globals.email = data?["email"];
   }
 
-  // static Future<void> deletePost(String)
+  static Future<void> deletePost(
+      String postDoc, String dShid, String imgid) async {
+    await FireStoreMethods.deleteData(postDoc, "posts");
+    await FireStoreMethods.deleteData(postDoc, globals.userdoc);
+    await FireStoreMethods.deleteData(dShid, globals.userdoc);
+    await IU.delete(imgid);
+  }
 }
