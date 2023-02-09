@@ -48,18 +48,18 @@ class _FeedScreenState extends State<FeedScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Feed",
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         SingleChildScrollView(
@@ -69,7 +69,7 @@ class _FeedScreenState extends State<FeedScreen> {
                               Container(
                                 width: 58,
                                 height: 58,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     gradient: LinearGradient(colors: [
                                       Color(0xFFFFE0DF),
@@ -77,7 +77,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     ])),
                                 child: Center(
                                   child: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.add,
                                       color: Colors.black,
                                       size: 28,
@@ -88,7 +88,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
                               Row(
@@ -116,7 +116,7 @@ class _FeedScreenState extends State<FeedScreen> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
@@ -175,7 +175,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                     documentSnapshot['img']
                                                         .toString()),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 12,
                                               ),
                                               Column(
@@ -184,11 +184,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                                 children: [
                                                   Text(
                                                     documentSnapshot['name'],
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 15,
                                                         color: Colors.white),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 3,
                                                   ),
                                                 ],
@@ -244,7 +244,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                   Text(
                                                     documentSnapshot['like']
                                                         .toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 13,
                                                         color: Colors.white),
                                                   ),

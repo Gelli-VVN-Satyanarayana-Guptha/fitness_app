@@ -21,17 +21,17 @@ class FireStoreMethods {
   }
 
   static Future<void> addUserDoc(
-      String collectionName, String docid, Map<String, dynamic> data) async {
+      String? collectionName, String? docid, Map<String, dynamic>? data) async {
     await db
-        .collection(collectionName)
+        .collection(collectionName!)
         .doc(docid)
-        .set(data)
+        .set(data!)
         .catchError((onError) => {print(onError.toString())});
   }
 
   static Future<String> readDataFromFirestore(
-      String collectionName, String docid) async {
-    var docSh = await db.collection(collectionName).doc(docid).get();
+      String? collectionName, String? docid) async {
+    var docSh = await db.collection(collectionName!).doc(docid).get();
     Map<String, dynamic>? data = docSh.data();
     print(data);
     String postDoc = data!["postimg"];
@@ -39,12 +39,12 @@ class FireStoreMethods {
   }
 
   static Future<void> updateOrCreateFirestoreData(
-      String id, String collectionName, Map<String, dynamic> data,
+      String? id, String? collectionName, Map<String, dynamic>? data,
       {bool isMerge = false}) async {
     await db
-        .collection(collectionName)
+        .collection(collectionName!)
         .doc(id)
-        .set(data, SetOptions(merge: isMerge));
+        .set(data!, SetOptions(merge: isMerge));
   }
 
   static Future<void> deleteData(String id, String collectionName) async {
