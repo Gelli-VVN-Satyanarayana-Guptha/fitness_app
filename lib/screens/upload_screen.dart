@@ -13,7 +13,7 @@ class UploadScreen extends StatefulWidget {
 
 class _UploadScreenState extends State<UploadScreen> {
   ImageUpload IU = ImageUpload();
-  final CollectionReference myPosts =
+  final CollectionReference? myPosts =
       FirebaseFirestore.instance.collection(globals.userdoc);
 
   @override
@@ -39,14 +39,14 @@ class _UploadScreenState extends State<UploadScreen> {
           children: [
             Expanded(
               child: StreamBuilder(
-                stream: myPosts.snapshots(),
+                stream: myPosts?.snapshots(),
                 builder:
                     (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                   if (streamSnapshot.hasData) {
                     return ListView.builder(
                       itemCount: streamSnapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        final DocumentSnapshot documentSnapshot =
+                        final DocumentSnapshot? documentSnapshot =
                             streamSnapshot.data!.docs[index];
 
                         return Card(
@@ -56,8 +56,8 @@ class _UploadScreenState extends State<UploadScreen> {
                             leading: SizedBox(
                                 height: 30,
                                 width: 40,
-                                child:
-                                    Image.network(documentSnapshot["postimg"])),
+                                child: Image.network(
+                                    documentSnapshot!["postimg"])),
                             title: Text(globals.username),
                             trailing: IconButton(
                               style: ElevatedButton.styleFrom(
@@ -68,7 +68,8 @@ class _UploadScreenState extends State<UploadScreen> {
 
                                 String dShid = documentSnapshot.id;
                                 String imgid = documentSnapshot["postimg"];
-                                //FireStoreMethods.deletePost(postDoc,dShid,imgid);
+                                FireStoreMethods.deletePost(
+                                    postDoc, dShid, imgid);
                                 setState(() {});
                               },
                               icon: const Icon(

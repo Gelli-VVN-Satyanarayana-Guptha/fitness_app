@@ -16,7 +16,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   var pressed = List<int>.filled(100, 0);
-  final CollectionReference posts =
+  final CollectionReference? posts =
       FirebaseFirestore.instance.collection('posts');
   ImageUpload IU = ImageUpload();
 
@@ -39,7 +39,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget getBody() {
     return StreamBuilder(
-        stream: posts.snapshots(),
+        stream: posts?.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if (streamSnapshot.hasData) {
             return SingleChildScrollView(
@@ -94,8 +94,8 @@ class _FeedScreenState extends State<FeedScreen> {
                               Row(
                                 children: List.generate(
                                     streamSnapshot.data!.docs.length, (index) {
-                                  final DocumentSnapshot documentSnapshot =
-                                      streamSnapshot.data!.docs[index];
+                                  final DocumentSnapshot? documentSnapshot =
+                                      streamSnapshot.data?.docs[index];
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 30),
                                     child: Container(
@@ -105,7 +105,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                           shape: BoxShape.circle,
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  documentSnapshot["img"]),
+                                                  documentSnapshot!["img"]),
                                               fit: BoxFit.cover)),
                                     ),
                                   );
