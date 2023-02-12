@@ -57,18 +57,20 @@ class _UploadScreenState extends State<UploadScreen> {
                                 height: 30,
                                 width: 40,
                                 child: Image.network(
-                                    documentSnapshot!["postimg"])),
+                                    documentSnapshot?["postimg"] ?? "")),
                             title: Text(globals.username),
                             trailing: IconButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black,
                               ),
-                              onPressed: () {
-                                String postDoc = documentSnapshot["postDoc"];
+                              onPressed: () async {
+                                String postDoc =
+                                    documentSnapshot?["postDoc"] ?? "";
 
-                                String dShid = documentSnapshot.id;
-                                String imgid = documentSnapshot["postimg"];
-                                FireStoreMethods.deletePost(
+                                String dShid = documentSnapshot?.id ?? "";
+                                String imgid =
+                                    documentSnapshot?["postimg"] ?? "";
+                                await FireStoreMethods.deletePost(
                                     postDoc, dShid, imgid);
                                 setState(() {});
                               },
@@ -99,10 +101,9 @@ class _UploadScreenState extends State<UploadScreen> {
                         backgroundColor: Color.fromARGB(255, 44, 39, 39),
                         // Background color
                       ),
-                      onPressed: () {
-                        setState(() async {
-                          await IU.upload('camera', '/postimg');
-                        });
+                      onPressed: () async {
+                        await IU.upload('camera', '/postimg');
+                        setState(() {});
                       },
                       icon: const Icon(Icons.camera),
                       label: const Text('Camera')),
@@ -111,10 +112,9 @@ class _UploadScreenState extends State<UploadScreen> {
                         backgroundColor: Color.fromARGB(255, 44, 39, 39),
                         // Background color
                       ),
-                      onPressed: () {
-                        setState(() async {
-                          await IU.upload('gallery', '/postimg');
-                        });
+                      onPressed: () async {
+                        await IU.upload('gallery', '/postimg');
+                        setState(() {});
                       },
                       icon: const Icon(Icons.library_add),
                       label: const Text('Gallery')),

@@ -66,9 +66,9 @@ class FireStoreMethods {
   static Future<void> getDetails(String collectionName, String docid) async {
     var docSh = await db.collection(collectionName).doc(docid).get();
     Map<String, dynamic>? data = docSh.data();
-    globals.imgString = data?["img"];
-    globals.username = data?["username"];
-    globals.email = data?["email"];
+    globals.imgString = data?["img"] ?? "";
+    globals.username = data?["username"] ?? "";
+    globals.email = data?["email"] ?? "";
   }
 
   static Future<void> deletePost(

@@ -1,9 +1,10 @@
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:fitness_app/utils/image_upload.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app/data/me_post_json.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:fitness_app/providers/timeProvider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,17 +15,25 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   ImageUpload IU = ImageUpload();
-  bool isPhoto = true;
   final username = globals.username;
   final email = globals.email;
-  final jogtime = globals.minJ;
-  final cycletime = globals.minC;
-  final yogatime = globals.minY;
+
+  late String jogtime = "";
+  late String cycletime = "";
+  late String yogatime = "";
 
   @override
   void initState() {
+    //onInit();
     super.initState();
   }
+
+  // void onInit() async {
+  //   jogtime = await Provider.of<TimeProvider>(context, listen: false).jogtime;
+  //   cycletime =
+  //       await Provider.of<TimeProvider>(context, listen: false).cycletime;
+  //   yogatime = await Provider.of<TimeProvider>(context, listen: false).yogatime;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -182,32 +191,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 25,
           ),
-          Text(
-            "My Posts",
-            style: TextStyle(
-                fontFamily: "inder", fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              children: List.generate(mePostList.length, (index) {
-                return Container(
-                  width: (size.width - 60) / 2,
-                  height: (size.width - 60) / 2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          image: NetworkImage(mePostList[index]),
-                          fit: BoxFit.cover)),
-                );
-              }),
-            ),
-          )
+          // Text(
+          //   "My Posts",
+          //   style: TextStyle(
+          //       fontFamily: "inder", fontWeight: FontWeight.bold, fontSize: 18),
+          // ),
+          // SizedBox(
+          //   height: 25,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 20),
+          //   child: Wrap(
+          //     spacing: 15,
+          //     runSpacing: 15,
+          //     children: List.generate(mePostList.length, (index) {
+          //       return Container(
+          //         width: (size.width - 60) / 2,
+          //         height: (size.width - 60) / 2,
+          //         decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(20),
+          //             image: DecorationImage(
+          //                 image: NetworkImage(mePostList[index]),
+          //                 fit: BoxFit.cover)),
+          //       );
+          //     }),
+          //   ),
+          // )
         ],
       ),
     );

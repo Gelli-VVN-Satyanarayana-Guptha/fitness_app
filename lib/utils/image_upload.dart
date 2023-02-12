@@ -81,6 +81,6 @@ class ImageUpload {
   }
 
   Future<void> delete(String ref) async {
-    await storage.ref(ref).delete();
+    await storage.refFromURL(ref).delete();
   }
 }

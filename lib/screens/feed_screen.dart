@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fitness_app/data/post_json.dart';
-import 'package:fitness_app/data/user_json.dart';
 import 'package:fitness_app/utils/image_upload.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
 
@@ -16,7 +14,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   var pressed = List<int>.filled(100, 0);
-  final CollectionReference? posts =
+  final CollectionReference posts =
       FirebaseFirestore.instance.collection('posts');
   ImageUpload IU = ImageUpload();
 
@@ -39,7 +37,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget getBody() {
     return StreamBuilder(
-        stream: posts?.snapshots(),
+        stream: posts.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if (streamSnapshot.hasData) {
             return SingleChildScrollView(
@@ -93,7 +91,8 @@ class _FeedScreenState extends State<FeedScreen> {
                               ),
                               Row(
                                 children: List.generate(
-                                    streamSnapshot.data!.docs.length, (index) {
+                                    streamSnapshot.data?.docs.length ?? 0,
+                                    (index) {
                                   final DocumentSnapshot? documentSnapshot =
                                       streamSnapshot.data?.docs[index];
                                   return Padding(
@@ -105,7 +104,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                           shape: BoxShape.circle,
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  documentSnapshot!["img"]),
+                                                  documentSnapshot?["img"] ??
+                                                      ""),
                                               fit: BoxFit.cover)),
                                     ),
                                   );
@@ -122,9 +122,9 @@ class _FeedScreenState extends State<FeedScreen> {
                     Column(
                       children: List.generate(streamSnapshot.data!.docs.length,
                           (index) {
-                        final DocumentSnapshot documentSnapshot =
-                            streamSnapshot.data!.docs[index];
-                        final String doc = documentSnapshot.id;
+                        final DocumentSnapshot? documentSnapshot =
+                            streamSnapshot.data?.docs[index];
+                        final String? doc = documentSnapshot?.id;
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 25),
                           child: Stack(
@@ -142,7 +142,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     ],
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                            documentSnapshot['postimg']),
+                                            documentSnapshot?['postimg']),
                                         fit: BoxFit.cover),
                                     borderRadius: BorderRadius.circular(20)),
                               ),
@@ -172,8 +172,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                             children: [
                                               CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                    documentSnapshot['img']
-                                                        .toString()),
+                                                    documentSnapshot?['img']
+                                                            ?.toString() ??
+                                                        ""),
                                               ),
                                               const SizedBox(
                                                 width: 12,
@@ -183,7 +184,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    documentSnapshot['name'],
+                                                    documentSnapshot?['name'] ??
+                                                        "",
                                                     style: const TextStyle(
                                                         fontSize: 15,
                                                         color: Colors.white),
@@ -215,19 +217,18 @@ class _FeedScreenState extends State<FeedScreen> {
                                                         .spaceEvenly,
                                                 children: [
                                                   GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        pressed[index] = 1;
-
-                                                        FireStoreMethods
-                                                            .updateOneField(
-                                                                "posts",
-                                                                doc,
-                                                                "like",
-                                                                documentSnapshot[
-                                                                        "like"] +
-                                                                    1);
-                                                      });
+                                                    onTap: () async {
+                                                      pressed[index] = 1;
+                                                      print(doc);
+                                                      await FireStoreMethods
+                                                          .updateOneField(
+                                                              "posts",
+                                                              doc!,
+                                                              "like",
+                                                              documentSnapshot![
+                                                                      "like"] +
+                                                                  1);
+                                                      setState(() {});
                                                     },
                                                     child: Icon(
                                                       (pressed[index] == 0)
@@ -242,8 +243,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    documentSnapshot['like']
-                                                        .toString(),
+                                                    documentSnapshot?['like']
+                                                            ?.toString() ??
+                                                        "",
                                                     style: const TextStyle(
                                                         fontSize: 13,
                                                         color: Colors.white),

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_app/providers/timeProvider.dart';
 import 'package:fitness_app/screens/login_screen.dart';
 import 'package:fitness_app/screens/profile_screen.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,14 +20,20 @@ class _HomeScreenState extends State<HomeScreen> {
   final username = globals.username;
   final hrate = "76";
 
+  late String jogtime;
+  late String cycletime;
+  late String yogatime;
+
   Timer? countTimerJ;
   Timer? countTimerC;
   Timer? countTimerY;
   Duration myDurationJ = Duration(hours: 1);
   Duration myDurationC = Duration(hours: 1);
   Duration myDurationY = Duration(hours: 1);
+
   @override
   void initState() {
+    //onInit();
     super.initState();
   }
 
@@ -100,6 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // void onInit() async {
+  //   jogtime = await Provider.of<TimeProvider>(context, listen: false).jogtime;
+  //   cycletime =
+  //       await Provider.of<TimeProvider>(context, listen: false).cycletime;
+  //   yogatime = await Provider.of<TimeProvider>(context, listen: false).yogatime;
+  // }
+
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
@@ -110,9 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final minutesY = strDigits(myDurationY.inMinutes.remainder(60));
     final secondsY = strDigits(myDurationY.inSeconds.remainder(60));
 
-    globals.minJ = minutesJ;
-    globals.minC = minutesC;
-    globals.minY = minutesY;
+    // Provider.of<TimeProvider>(context, listen: false).jogtime = minutesJ;
+    // Provider.of<TimeProvider>(context, listen: false).cycletime = minutesC;
+    // Provider.of<TimeProvider>(context, listen: false).yogatime = minutesY;
 
     return Scaffold(
       appBar: AppBar(
