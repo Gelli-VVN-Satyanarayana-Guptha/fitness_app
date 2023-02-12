@@ -5,7 +5,6 @@ import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
 import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -184,32 +183,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 25,
           ),
-          // Text(
-          //   "My Posts",
-          //   style: TextStyle(
-          //       fontFamily: "inder", fontWeight: FontWeight.bold, fontSize: 18),
-          // ),
-          // SizedBox(
-          //   height: 25,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(bottom: 20),
-          //   child: Wrap(
-          //     spacing: 15,
-          //     runSpacing: 15,
-          //     children: List.generate(mePostList.length, (index) {
-          //       return Container(
-          //         width: (size.width - 60) / 2,
-          //         height: (size.width - 60) / 2,
-          //         decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(20),
-          //             image: DecorationImage(
-          //                 image: NetworkImage(mePostList[index]),
-          //                 fit: BoxFit.cover)),
-          //       );
-          //     }),
-          //   ),
-          // )
         ],
       ),
     );
