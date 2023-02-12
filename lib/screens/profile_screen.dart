@@ -3,8 +3,9 @@ import 'package:fitness_app/utils/image_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
-import 'package:fitness_app/providers/timeProvider.dart';
+import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -15,25 +16,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   ImageUpload IU = ImageUpload();
-  final username = globals.username;
-  final email = globals.email;
-
-  late String jogtime = "";
-  late String cycletime = "";
-  late String yogatime = "";
 
   @override
   void initState() {
-    //onInit();
     super.initState();
   }
-
-  // void onInit() async {
-  //   jogtime = await Provider.of<TimeProvider>(context, listen: false).jogtime;
-  //   cycletime =
-  //       await Provider.of<TimeProvider>(context, listen: false).cycletime;
-  //   yogatime = await Provider.of<TimeProvider>(context, listen: false).yogatime;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +74,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     left: 225,
                     child: IconButton(
                         onPressed: (() async {
-                          await IU.upload("gallery", "/userimg");
+                          await IU.upload(
+                              'gallery',
+                              '/userimg',
+                              globals.username,
+                              globals.imgString,
+                              globals.userdoc);
+
                           setState(() {});
                         }),
                         icon: Icon(
@@ -100,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
-                    "$username",
+                    globals.username,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -108,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 8,
                 ),
                 Text(
-                  "$email",
+                  globals.email,
                   style: TextStyle(fontSize: 15),
                 ),
               ],
@@ -130,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 8,
                   ),
                   Text(
-                    "$jogtime",
+                    Provider.of<UserDataProvider>(context, listen: false).jog,
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -152,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 8,
                   ),
                   Text(
-                    "$cycletime",
+                    Provider.of<UserDataProvider>(context, listen: false).cycle,
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -174,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 8,
                   ),
                   Text(
-                    "$yogatime",
+                    Provider.of<UserDataProvider>(context, listen: false).yoga,
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(

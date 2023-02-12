@@ -1,3 +1,4 @@
+import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/constants/navigation.dart';
@@ -5,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

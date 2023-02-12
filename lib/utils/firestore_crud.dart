@@ -72,10 +72,10 @@ class FireStoreMethods {
   }
 
   static Future<void> deletePost(
-      String postDoc, String dShid, String imgid) async {
+      String postDoc, String dShid, String imgid, String userdoc) async {
     await FireStoreMethods.deleteData(postDoc, "posts");
-    await FireStoreMethods.deleteData(postDoc, globals.userdoc);
-    await FireStoreMethods.deleteData(dShid, globals.userdoc);
+    await FireStoreMethods.deleteData(postDoc, userdoc);
+    await FireStoreMethods.deleteData(dShid, userdoc);
     await IU.delete(imgid);
   }
 }

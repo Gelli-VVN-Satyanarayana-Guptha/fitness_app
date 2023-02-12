@@ -3,6 +3,9 @@ import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:fitness_app/utils/image_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
+
+import '../providers/userdata_provider.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -13,11 +16,12 @@ class UploadScreen extends StatefulWidget {
 
 class _UploadScreenState extends State<UploadScreen> {
   ImageUpload IU = ImageUpload();
-  final CollectionReference? myPosts =
-      FirebaseFirestore.instance.collection(globals.userdoc);
+  //final CollectionReference? myPosts;
 
   @override
   Widget build(BuildContext context) {
+    final CollectionReference? myPosts =
+        FirebaseFirestore.instance.collection(globals.userdoc);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff502F2F),
@@ -70,8 +74,9 @@ class _UploadScreenState extends State<UploadScreen> {
                                 String dShid = documentSnapshot?.id ?? "";
                                 String imgid =
                                     documentSnapshot?["postimg"] ?? "";
+
                                 await FireStoreMethods.deletePost(
-                                    postDoc, dShid, imgid);
+                                    postDoc, dShid, imgid, globals.userdoc);
                                 setState(() {});
                               },
                               icon: const Icon(
@@ -102,7 +107,8 @@ class _UploadScreenState extends State<UploadScreen> {
                         // Background color
                       ),
                       onPressed: () async {
-                        await IU.upload('camera', '/postimg');
+                        await IU.upload('camera', '/postimg', globals.username,
+                            globals.imgString, globals.userdoc);
                         setState(() {});
                       },
                       icon: const Icon(Icons.camera),
@@ -113,7 +119,8 @@ class _UploadScreenState extends State<UploadScreen> {
                         // Background color
                       ),
                       onPressed: () async {
-                        await IU.upload('gallery', '/postimg');
+                        await IU.upload('gallery', '/postimg', globals.username,
+                            globals.imgString, globals.userdoc);
                         setState(() {});
                       },
                       icon: const Icon(Icons.library_add),

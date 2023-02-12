@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitness_app/utils/image_upload.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
+
+import '../providers/userdata_provider.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -80,8 +83,12 @@ class _FeedScreenState extends State<FeedScreen> {
                                       color: Colors.black,
                                       size: 28,
                                     ),
-                                    onPressed: () {
-                                      IU.upload('gallery', '/postimg');
+                                    onPressed: () async {
+                                      String name = globals.username;
+                                      String img = globals.imgString;
+                                      String doc = globals.userdoc;
+                                      await IU.upload('gallery', '/postimg',
+                                          name, img, doc);
                                     },
                                   ),
                                 ),

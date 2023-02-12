@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_app/providers/timeProvider.dart';
+import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:fitness_app/screens/login_screen.dart';
 import 'package:fitness_app/screens/profile_screen.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
@@ -17,12 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final username = globals.username;
   final hrate = "76";
-
-  late String jogtime;
-  late String cycletime;
-  late String yogatime;
+  final username = globals.username;
 
   Timer? countTimerJ;
   Timer? countTimerC;
@@ -33,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    //onInit();
     super.initState();
   }
 
@@ -108,13 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // void onInit() async {
-  //   jogtime = await Provider.of<TimeProvider>(context, listen: false).jogtime;
-  //   cycletime =
-  //       await Provider.of<TimeProvider>(context, listen: false).cycletime;
-  //   yogatime = await Provider.of<TimeProvider>(context, listen: false).yogatime;
-  // }
-
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
@@ -124,10 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final secondsC = strDigits(myDurationC.inSeconds.remainder(60));
     final minutesY = strDigits(myDurationY.inMinutes.remainder(60));
     final secondsY = strDigits(myDurationY.inSeconds.remainder(60));
-
-    // Provider.of<TimeProvider>(context, listen: false).jogtime = minutesJ;
-    // Provider.of<TimeProvider>(context, listen: false).cycletime = minutesC;
-    // Provider.of<TimeProvider>(context, listen: false).yogatime = minutesY;
 
     return Scaffold(
       appBar: AppBar(
@@ -345,6 +329,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 45,
                                             child: GestureDetector(
                                               onTap: () {
+                                                Provider.of<UserDataProvider?>(
+                                                        context,
+                                                        listen: false)
+                                                    ?.updateJogtime(minutesJ);
                                                 resetTimer("J");
                                               },
                                               child: Image.asset(
@@ -482,6 +470,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 45,
                                             child: GestureDetector(
                                               onTap: () {
+                                                Provider.of<UserDataProvider?>(
+                                                        context,
+                                                        listen: false)
+                                                    ?.updatecycletime(minutesC);
                                                 resetTimer("C");
                                               },
                                               child: Image.asset(
@@ -619,6 +611,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 45,
                                             child: GestureDetector(
                                               onTap: (() {
+                                                Provider.of<UserDataProvider?>(
+                                                        context,
+                                                        listen: false)
+                                                    ?.updateYogatime(minutesY);
                                                 resetTimer("Y");
                                               }),
                                               child: Image.asset(

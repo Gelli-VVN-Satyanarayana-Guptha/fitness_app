@@ -1,16 +1,18 @@
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
 
 class ImageUpload {
   FirebaseStorage storage = FirebaseStorage.instance;
 
-  Future<void> upload(String inputSource, String folderName) async {
+  Future<void> upload(String inputSource, String folderName, String username,
+      String imgString, String userdoc) async {
     final picker = ImagePicker();
     XFile? pickedImage;
     try {
@@ -28,13 +30,13 @@ class ImageUpload {
             await storage.ref().child(folderName).child(fileName).putFile(
                 imageFile,
                 SettableMetadata(customMetadata: {
-                  'uploaded_by': globals.username,
+                  'uploaded_by': username,
                 }));
         final String fileUrl = await file.ref.getDownloadURL();
         if (folderName == "/postimg") {
           Map<String, dynamic> data = {
-            "name": globals.username,
-            "img": globals.imgString,
+            "name": username,
+            "img": imgString,
             "like": 0,
             "postimg": fileUrl,
           };
@@ -44,10 +46,9 @@ class ImageUpload {
             "postimg": fileUrl,
             "postDoc": postDoc
           };
-          FireStoreMethods.addDataToFirestore(globals.userdoc, myPost);
+          FireStoreMethods.addDataToFirestore(userdoc, myPost);
         } else {
-          FireStoreMethods.updateOneField(
-              "Users", "img", globals.userdoc, fileUrl);
+          FireStoreMethods.updateOneField("Users", "img", userdoc, fileUrl);
         }
       } on FirebaseException catch (error) {
         if (kDebugMode) {

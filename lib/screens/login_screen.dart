@@ -1,9 +1,11 @@
 import 'package:fitness_app/constants/navigation.dart';
+import 'package:fitness_app/providers/userdata_provider.dart';
 import 'package:fitness_app/screens/signup_screen.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/constants/global.dart' as globals;
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -217,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             minimumSize:
                                 const Size(100, 40), // Background color
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             logInToFb();
                           },
                           child: const Text(
