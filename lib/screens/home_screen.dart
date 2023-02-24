@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/providers/userdata_provider.dart';
+import 'package:fitness_app/screens/diet_screen.dart';
+import 'package:fitness_app/screens/exercise_screen.dart';
 import 'package:fitness_app/screens/login_screen.dart';
 import 'package:fitness_app/screens/profile_screen.dart';
 import 'package:fitness_app/utils/firestore_crud.dart';
@@ -206,7 +208,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 45,
                             child: GestureDetector(
                                 onTap: () {
-                                  print("diet");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DietScreen()),
+                                  );
                                 },
                                 child: Image.asset("assets/images/diet.png")),
                           ),
@@ -241,7 +247,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 45,
                             child: GestureDetector(
                                 onTap: () {
-                                  print("exercise");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ExerciseScreen()),
+                                  );
                                 },
                                 child:
                                     Image.asset("assets/images/exercise.png")),
