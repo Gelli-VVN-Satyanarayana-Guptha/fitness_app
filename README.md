@@ -1,8 +1,10 @@
 # fitness_app
 
-This is a Fitness community App made using flutter and firestore 
+This is a Fitness community App made using flutter and firestore.
+
 Check the below link to get the overview of the project.
-Google Drive Link - https://drive.google.com/file/d/1ruzAIvLhOxVjJ2qQSSYyCDjqguoyz4K5/view?usp=sharing
+
+Youtube Link - https://youtu.be/pdAjz-zbgV4
 
 ## Getting Started
 
